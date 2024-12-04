@@ -24,3 +24,4 @@ C:\Users\ramim\source\repos\schoolwerk\j3\MonoGame3DTest\MonoGame3DTest\obj\Debu
 C:\Users\ramim\source\repos\schoolwerk\j3\MonoGame3DTest\MonoGame3DTest\obj\Debug\net8.0\MonoGame3DTest.pdb
 C:\Users\ramim\source\repos\schoolwerk\j3\MonoGame3DTest\MonoGame3DTest\obj\Debug\net8.0\MonoGame3DTest.genruntimeconfig.cache
 C:\Users\ramim\source\repos\schoolwerk\j3\MonoGame3DTest\MonoGame3DTest\obj\Debug\net8.0\ref\MonoGame3DTest.dll
+C:\Users\ramim\source\repos\schoolwerk\j3\MonoGame3DTest\MonoGame3DTest\obj\Debug\net8.0\MonoGame3DTest.sourcelink.json

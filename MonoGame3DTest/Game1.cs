@@ -43,8 +43,6 @@ public class Game1 : Game
             camera.Initialize();
             
             basicEffect = new BasicEffect(GraphicsDevice);
-            basicEffect.Alpha = 1.0f;
-
             
             // triangle
             triangleVertices = new VertexPositionColor[3];
