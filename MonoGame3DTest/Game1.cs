@@ -43,6 +43,7 @@ public class Game1 : Game
             camera.Initialize();
             
             basicEffect = new BasicEffect(GraphicsDevice);
+            GraphicsDevice.BlendState = BlendState.AlphaBlend;
             
             // triangle
             triangleVertices = new VertexPositionColor[3];
@@ -57,7 +58,7 @@ public class Game1 : Game
             vertexBuffer.SetData<VertexPositionColor>(triangleVertices);
             
             texture = Content.Load<Texture2D>("GoodDoom");
-            GraphicsDevice.BlendState = BlendState.AlphaBlend;
+            
             
             base.Initialize();
         }
