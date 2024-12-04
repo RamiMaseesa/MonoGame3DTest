@@ -6,8 +6,8 @@ namespace MonoGame3DTest.Code;
 public class Camera : GameObject
 {
     //Camera
-    Vector3 camTarget;
-    Vector3 camPosition;
+    public Vector3 camTarget;
+    public Vector3 camPosition;
     public Matrix projectionMatrix;
     public Matrix viewMatrix;
     public Matrix worldMatrix;
@@ -79,8 +79,7 @@ public class Camera : GameObject
         }
     
         // Reset mouse position to the center of the screen
-        if (currentMouseState.X <= 30 || currentMouseState.X >= Utility.windowWidth - 30 ||
-            currentMouseState.Y <= 30 || currentMouseState.Y >= Utility.windowHeight - 30)
+        if (currentMouseState.X <= 30 || currentMouseState.X >= Utility.windowWidth - 30)
         {
             Mouse.SetPosition((int)Utility.windowWidth / 2, (int)Utility.windowHeight / 2);
             previousMouseState = Mouse.GetState(); // Update to avoid large jumps
@@ -95,8 +94,11 @@ public class Camera : GameObject
         KeyboardState keyboardState = Keyboard.GetState();
     
         Vector3 forwardMove = Vector3.Normalize(camTarget - camPosition);
+        forwardMove.Y = 0; // to not fly  up
+        
         Vector3 rightMove = Vector3.Cross(Vector3.Up, forwardMove);
         rightMove.Normalize();
+        
         Vector3 up = Vector3.Up;
         
         if (keyboardState.IsKeyDown(Keys.W)) movement += forwardMove * movementSpeed;

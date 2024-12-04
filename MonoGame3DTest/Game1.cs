@@ -76,13 +76,11 @@ public class Game1 : Game
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //Turn off culling so we see both sides of our render
+            // Turn off culling so we see both sides of the quad
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
             GraphicsDevice.RasterizerState = rasterizerState;
-            
-            //DrawMesh(model);
-            
+        
             // Define vertices for a textured quad
             VertexPositionTexture[] quadVertices = new VertexPositionTexture[]
             {
@@ -91,31 +89,39 @@ public class Game1 : Game
                 new VertexPositionTexture(new Vector3(-1, -1, 0), new Vector2(0, 1)), // Bottom-left
                 new VertexPositionTexture(new Vector3(1, -1, 0), new Vector2(1, 1))   // Bottom-right
             };
-
+        
             short[] quadIndices = new short[] { 0, 1, 2, 1, 3, 2 }; // Define two triangles
-
+        
             // Create a vertex and index buffer
             VertexBuffer vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionTexture), quadVertices.Length, BufferUsage.WriteOnly);
             vertexBuffer.SetData(quadVertices);
             IndexBuffer indexBuffer = new IndexBuffer(GraphicsDevice, IndexElementSize.SixteenBits, quadIndices.Length, BufferUsage.WriteOnly);
             indexBuffer.SetData(quadIndices);
-
+        
             GraphicsDevice.SetVertexBuffer(vertexBuffer);
             GraphicsDevice.Indices = indexBuffer;
-
+        
+            // Calculate the direction from the quad's position to the camera
+            Vector3 quadPosition = new Vector3(0, 0, -15); // Quad's position
+            Vector3 directionToCamera = Vector3.Normalize(camera.camPosition - quadPosition);
+        
+            // Create a rotation matrix to make the quad face the camera
+            Matrix billboardMatrix = Matrix.CreateWorld(quadPosition, directionToCamera, Vector3.Up);
+        
             // Set up BasicEffect
             basicEffect.VertexColorEnabled = false;
             basicEffect.TextureEnabled = true;
             basicEffect.Texture = texture;
             basicEffect.View = camera.viewMatrix;
             basicEffect.Projection = camera.projectionMatrix;
-            basicEffect.World = Matrix.CreateTranslation(0, 0, -15); // Position quad in 3D space
-
+            basicEffect.World = billboardMatrix; // Use the calculated billboard matrix
+        
             foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
                 GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, quadIndices.Length / 3);
             }
+            
             base.Draw(gameTime);
         }
 
